@@ -26,6 +26,11 @@ kube_group:       'kube'
 # install the addons (ie, DNS)
 addons:           'false'
 
+paths:
+  ca_dir:         '/etc/pki/trust/anchors'
+  ca_filename:    'SUSE_CaaSP_CA.crt'
+  var_kubelet:    '/var/lib/kubelet'
+
 # etcd details
 # notes:
 # - the token must be shared between all the machines in the cluster
