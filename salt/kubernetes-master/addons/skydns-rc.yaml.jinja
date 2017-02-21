@@ -152,7 +152,7 @@ spec:
       #       so we just mount them...
       - name: kubeconfig
         hostPath:
-          path: "/var/lib/kubelet/kubeconfig"
+          path: "{{ pillar['paths']['var_kubelet'] }}/kubeconfig"
       - name: pki
         hostPath:
           path: "/etc/pki"
