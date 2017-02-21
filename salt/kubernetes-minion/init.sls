@@ -6,7 +6,7 @@ conntrack-tools:
   pkg.installed
 
 kubernetes-minion:
-  pkg.latest:
+  pkg.installed:
     - pkgs:
       - iptables
       - conntrack-tools
