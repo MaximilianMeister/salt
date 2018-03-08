@@ -25,7 +25,27 @@ include:
     - require_in:
       - docker
 
+# the certificates need to be present as well on the os-layer
+# also skip the additional name that has :5000 as we only need it once there
+
+{% if ':5000' not in name %}
+/etc/pki/trust/anchors/{{ name }}.crt:
+  file.managed:
+    - makedirs: True
+    - contents: |
+        {{ cert | indent(8) }}
+    - require_in:
+      - docker
+{% endif %}
+
 {% endfor %}
+
+docker-reload-certificates:
+  service.running:
+    - name: docker
+    - restart: True
+    - onchanges:
+      - /etc/docker/certs.d/*
 
 ######################
 # proxy for the daemon
