@@ -18,11 +18,11 @@
    # doing another /etc/hosts update just for one stale entry seem like an overkill,
    # so the /etc/hosts cleanup will have to be delayed for some other moment...
    #}
-  {%- set nodes = salt.caasp_nodes.get_with_expr(expr, grain='network.interfaces') %}
+  {%- set nodes = salt['caasp_nodes.get_with_expr'](expr, grain='network.interfaces') %}
   {%- for id, ifaces in nodes.items() %}
-    {%- set ip = salt.caasp_net.get_primary_ip(host=id, ifaces=ifaces) %}
+    {%- set ip = salt['caasp_net.get_primary_ip'](host=id, ifaces=ifaces) %}
     {%- if ip|length > 0 %}
-      {%- set nodename = salt.caasp_net.get_nodename(host=id) %}
+      {%- set nodename = salt['caasp_net.get_nodename'](host=id) %}
       {%- if nodename|length > 0 %}
         {%- set ns = nodename + ' ' +
                    nodename + '.' + pillar['internal_infra_domain'] + ' ' +
